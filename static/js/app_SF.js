@@ -86,25 +86,16 @@ function buildCharts(sample) {
     // Build a Bar Chart
     // Don't forget to slice and reverse the input data appropriately
 
-    function getTop10OTUs(sample_values) { 
-    sample_values.sort((a, b) => b.sample_value - a.sample_value);
-    var top10OTUs = sample_values.slice(0, 10);
-
-    console.log(top10OTUs)
-    }
 
     var trace1 = {
-      x: sample_values,
-      y: top10OTUs,
+      x: sample_values.slice(0, 10).reverse(),
+      y: yticks.slice(0, 10).reverse(),
       type: 'bar',
       orientation: 'h',
       text: otu_labels,
-      marker: {
-        color: 'rgb(142,124,195)'
-      }
     };
     
-    var data = [trace1];
+    var data = [trace1];  
     
     var layout = {
       title: 'Top 10 Bacteria Cultures Found',
@@ -113,7 +104,7 @@ function buildCharts(sample) {
       },
       showlegend: false,
       xaxis: {
-        tickangle: -45
+        title: 'Number of Bacteria'
       },
       yaxis: {
         zeroline: false,
@@ -127,7 +118,7 @@ function buildCharts(sample) {
 
     // Render the Bar Chart
 
-    Plotly.newPlot('myDiv', data, layout);
+    Plotly.newPlot('bar', data, layout);
 
   });
 }
